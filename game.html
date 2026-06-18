@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARKET OVERLORD: CYBER-TECH EDITION</title>
+    <style>
+        :root {
+            --bg-dark: #0a0f1d;
+            --panel-bg: #131c31;
+            --neon-blue: #00f0ff;
+            --neon-green: #39ff14;
+            --neon-pink: #ff007f;
+            --neon-yellow: #fff000;
+            --text-main: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .cyber-container {
+            background: var(--panel-bg);
+            width: 100%;
+            max-width: 1050px;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+            border: 2px solid var(--neon-blue);
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR ĐỒ HỌA --- */
+        .sidebar {
+            background: #0d1527;
+            padding: 25px;
+            border-right: 2px solid var(--neon-blue);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .brand-title {
+            font-size: 22px;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .sound-ctrl {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .btn-sound {
+            background: transparent;
+            border: 1px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            padding: 5px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #223354;
+            padding: 15px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .metric-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #708db7;
+            letter-spacing: 1px;
+        }
+
+        .metric-num {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+
+        /* Thanh đồ họa giả lập dịch chuyển */
+        .cyber-bar-bg {
+            background: #1a263e;
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .cyber-bar-fill {
+            height: 100%;
+            width: 50%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- KHU VỰC CHÍNH --- */
+        .main-content {
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: radial-gradient(circle at top right, #17233c, #131c31);
+        }
+
+        .screen { display: none; }
+        .screen.active { display: block; animation: neonGlitch 0.4s ease-out; }
+
+        @keyframes neonGlitch {
+            0% { opacity: 0; transform: scale(0.98); filter: hue-rotate(90deg); }
+            100% { opacity: 1; transform: scale(1); filter: hue-rotate(0deg); }
+        }
+
+        /* Trợ lý ảo AI Assistant */
+        .ai-assistant {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .ai-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+            box-shadow: 0 0 10px var(--neon-blue);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px var(--neon-blue); }
+            50% { box-shadow: 0 0 20px var(--neon-blue); }
+            100% { box-shadow: 0 0 5px var(--neon-blue); }
+        }
+
+        .ai-msg { font-size: 13px; font-style: italic; color: #94a3b8; }
+
+        .story-panel {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #cbd5e1;
+        }
+
+        .shop-container {
+            background: rgba(255, 240, 0, 0.05);
+            border: 1px dashed var(--neon-yellow);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .grid-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-action {
+            background: #1d2a45;
+            border: 1px solid #3b5280;
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover:not(:disabled) {
+            background: linear-gradient(90deg, #1d2a45, #253961);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .btn-action:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .btn-buy {
+            background: var(--neon-yellow);
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255,240,0,0.4);
+        }
+
+        .btn-buy:disabled { background: #475569; color: #94a3b8; box-shadow: none; }
+
+        /* Ticker chạy tin tức sàn tài chính */
+        .news-ticker {
+            background: #050914;
+            border: 1px solid #223354;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-next-lvl {
+            background: var(--neon-green);
+            color: #000;
+            padding: 12px 35px;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 0 15px var(--neon-green);
+            align-self: flex-end;
+            margin-top: 20px;
+        }
+
+        /* Chứng chỉ thành tựu cuối game */
+        .cert-box {
+            border: 3px double var(--neon-blue);
+            padding: 25px;
+            background: rgba(0,0,0,0.3);
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    let soundEnabled = true;
+    function playTone(freq, type, duration) {
+        if (!soundEnabled) return;
+        try {
+            let ctx = new (window.AudioContext || window.webkitAudioContext)();
+            let osc = ctx.createOscillator();
+            let gain = ctx.createGain();
+            osc.type = type;
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + duration);
+        } catch(e) {}
+    }
+    function soundWin() { playTone(523.25, 'sine', 0.1); setTimeout(()=>playTone(659.25, 'sine', 0.15), 100); }
+    function soundLose() { playTone(220, 'sawtooth', 0.3); }
+    function soundClick() { playTone(880, 'triangle', 0.05); }
+    function toggleSound() {
+        soundEnabled = !soundEnabled;
+        document.getElementById('sound-btn').innerText = soundEnabled ? "🔊 AUDIO: ON" : "🔇 AUDIO: OFF";
+    }
+</script>
+
+<div class="cyber-container">
+    <div class="sidebar">
+        <div class="brand-title">SYSTEM v4.0</div>
+        <div class="sound-ctrl">
+            <button class="btn-sound" id="sound-btn" onclick="toggleSound()">🔊 AUDIO: ON</button>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-title">Tổng Quỹ Tiền Mặt</div>
+            <div class="metric-num" id="ui-cash" style="color: var(--neon-green);">100,000,000đ</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-title">Hao Phí Cá Biệt (Năng Suất)</div>
+            <div class="metric-num" id="ui-eff" style="color: var(--neon-yellow);">3.0 Giờ</div>
+            <div class="cyber-bar-bg">
+                <div class="cyber-bar-fill" id="bar-eff" style="background: var(--neon-yellow); width: 30%;"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-title">Thị Phần Kiểm Soát</div>
+            <div class="metric-num" id="ui-share" style="color: var(--neon-blue);">25%</div>
+            <div class="cyber-bar-bg">
+                <div class="cyber-bar-fill" id="bar-share" style="background: var(--neon-blue); width: 25%;"></div>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-title">Chỉ Số Lạm Phát</div>
+            <div class="metric-num" id="ui-inf" style="color: var(--neon-pink);">2.0%</div>
+            <div class="cyber-bar-bg">
+                <div class="cyber-bar-fill" id="bar-inf" style="background: var(--neon-pink); width: 10%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="screen-welcome" class="screen active">
+            <h1 style="color: var(--neon-blue); font-size: 32px; margin-top: 0; text-transform: uppercase;">Trình Giả Lập: Thiên Tài Kinh Tế</h1>
+            <div class="story-panel">
+                Hệ thống sẵn sàng nạp dữ liệu từ Giáo trình Kinh tế Chính trị Mác - Lênin. Bạn sẽ trực tiếp điều phối các biến số thị trường để kiểm nghiệm sức mạnh chi phối từ 4 đại quy luật cốt lõi.<br><br>
+                <span style="color: var(--neon-yellow);">*Cảnh báo: Đồ thị thông số bên trái sẽ biến động theo thời gian thực dựa trên logic thuật toán.</span>
+            </div>
+            <button class="btn-action" style="text-align: center; border-color: var(--neon-green); color: var(--neon-green);" onclick="soundClick(); changeScreen('lvl1')">KHỞI ĐỘNG MA TRẬN</button>
+        </div>
+
+        <div id="screen-lvl1" class="screen">
+            <div class="ai-assistant">
+                <div class="ai-avatar">AI</div>
+                <div class="ai-msg" id="ai-txt-1">"Hao phí lao động cá biệt của bạn đang cao hơn mức trung bình của xã hội (2.0h). Bạn sẽ bị đào thải nếu không tối ưu hóa."</div>
+            </div>
+            <h2 style="color: var(--neon-blue); margin-top:0;">Giai đoạn 1: Quy Luật Giá Trị</h2>
+            <div class="story-panel">
+                Xã hội chỉ chấp nhận mua sản phẩm của bạn với mức hao phí lao động xã hội cần thiết là <strong>2.0 giờ</strong>. Xưởng của bạn đang vận hành với mức <strong>3.0 giờ</strong>. Bạn có phương án xử lý nào?
+            </div>
+            
+            <div class="shop-container" id="shop-1">
+                <div>
+                    <span style="color: var(--neon-yellow); font-weight:bold;">[TT CHUYỂN GIAO]</span> Mua dây chuyền tự động hóa AI Đức (Phí: 40Tr).<br>
+                    <small style="color: #708db7;">Tác dụng: Hạ vĩnh viễn thời gian cá biệt xuống 1.2 giờ.</small>
+                </div>
+                <button class="btn-buy" id="buy-btn-1" onclick="soundClick(); purchaseTech()">MUA CÔNG NGHỆ</button>
+            </div>
+
+            <div class="grid-options">
+                <button class="btn-action" id="l1-o1" onclick="submitLvl1(1)">Lựa chọn 1: Giữ nguyên hiện trạng, cắt bớt lương của người lao động để giảm giá thành cá biệt.</button>
+                <button class="btn-action" id="l1-o2" onclick="submitLvl1(2)">Lựa chọn 2: Tiến hành tung sản phẩm ra thị trường bán thương mại.</button>
+            </div>
+            <button class="btn-next-lvl" id="next-to-2" onclick="soundClick(); changeScreen('lvl2')">TIẾN VÀO GIAI ĐOẠN 2</button>
+        </div>
+
+        <div id="screen-lvl2" class="screen">
+            <div class="ai-assistant">
+                <div class="ai-avatar">AI</div>
+                <div class="ai-msg" id="ai-txt-2">"Hệ thống phát hiện dòng tiền dịch chuyển. Cầu về Xe điện/Năng lượng Xanh tăng mạnh 400% trên toàn cầu."</div>
+            </div>
+            <h2 style="color: var(--neon-blue); margin-top:0;">Giai đoạn 2: Quy Luật Cung - Cầu</h2>
+            <div class="story-panel">
+                Thị trường đang khan hiếm nghiêm trọng các sản phẩm Xanh (Cầu > Cung). Giá cả các mặt hàng này bị đẩy cao gấp đôi giá trị thực tế. Bạn sẽ làm gì với nguồn vốn của mình?
+            </div>
+            <div class="grid-options">
+                <button class="btn-action" onclick="submitLvl2(1)">Lựa chọn 1: Tiếp tục sản xuất dòng xe xăng truyền thống cũ và tung khuyến mãi lớn.</button>
+                <button class="btn-action" onclick="submitLvl2(2)">Lựa chọn 2: Đóng cửa dây chuyền cũ, tái cấu trúc nhà máy sang lắp ráp pin và linh kiện xe điện.</button>
+            </div>
+            <button class="btn-next-lvl" id="next-to-3" onclick="soundClick(); changeScreen('lvl3')">TIẾN VÀO GIAI ĐOẠN 3</button>
+        </div>
+
+        <div id="screen-lvl3" class="screen">
+            <div class="ai-assistant">
+                <div class="ai-avatar">AI</div>
+                <div class="ai-msg" id="ai-txt-3">"Cảnh báo bảo mật! Tập đoàn đối thủ đa quốc gia vừa tung chiến dịch trợ giá, dọa chiếm toàn bộ thị phần của bạn."</div>
+            </div>
+            <h2 style="color: var(--neon-blue); margin-top:0;">Giai đoạn 3: Quy Luật Cạnh Tranh</h2>
+            <div class="story-panel">
+                Để giành ưu thế trong môi trường kinh tế thị trường, đối thủ liên tục cải tiến đồ họa sản phẩm và giảm giá sâu. Bạn chọn chiến lược sinh tồn nào?
+            </div>
+            <div class="grid-options">
+                <button class="btn-action" onclick="submitLvl3(1)">Lựa chọn 1: Chấp nhận biên lợi nhuận thấp, giảm giá kịch sàn để đối đầu trực diện (Chiến tranh giá cả).</button>
+                <button class="btn-action" onclick="submitLvl3(2)">Lựa chọn 2: Tập trung ngân sách xây dựng hệ sinh thái khép kín và nâng cấp dịch vụ bảo hành độc quyền.</button>
+            </div>
+            <button class="btn-next-lvl" id="next-to-4" onclick="soundClick(); changeScreen('lvl4')">TIẾN VÀO GIAI ĐOẠN 4</button>
+        </div>
+
+        <div id="screen-lvl4" class="screen">
+            <div class="ai-assistant">
+                <div class="ai-avatar">AI</div>
+                <div class="ai-msg" id="ai-txt-4">"Khủng hoảng thanh khoản diện rộng. Người dân thắt chặt chi tiêu, lưu thông hàng hóa tắc nghẽn."</div>
+            </div>
+            <h2 style="color: var(--neon-blue); margin-top:0;">Giai đoạn 4: Quy Luật Lưu Thông Tiền Tệ</h2>
+            <div class="story-panel">
+                Nền kinh tế đóng băng do thiếu hụt phương tiện lưu thông. Với tư cách Thống đốc cố vấn vĩ mô, quyết sách phát hành tiền tệ của bạn là gì?
+            </div>
+            <div class="grid-options">
+                <button class="btn-action" onclick="submitLvl4(1)">Lựa chọn 1: Ký lệnh in và phân phối thêm 500 nghìn tỷ tiền giấy bơm thẳng vào thị trường.</button>
+                <button class="btn-action" onclick="submitLvl4(2)">Lựa chọn 2: Không in thêm tiền, áp dụng công nghệ số hóa ngân hàng để đẩy nhanh tốc độ vòng quay tiền tệ.</button>
+            </div>
+            <button class="btn-next-lvl" id="next-to-end" onclick="soundClick(); processEndGame()">XUẤT BÁO CÁO CUỐI CÙNG</button>
+        </div>
+
+        <div id="screen-end" class="screen">
+            <h2 style="color: var(--neon-yellow); text-align: center; margin-top: 0;">BẢNG ĐÁNH GIÁ CHUYÊN GIA VĨ MÔ</h2>
+            <div class="cert-box" id="cert-display">
+                <h3 style="color: var(--neon-blue); margin: 0; letter-spacing: 2px;">CHỨNG CHỈ ĐIỀU HÀNH KINH TẾ</h3>
+                <p style="font-size: 14px; color: #708db7;">Hệ thống ma trận số hóa xác nhận thành tựu:</p>
+                <h2 id="final-rank" style="font-size: 32px; margin: 10px 0;">HẠNG KIM CƯƠNG</h2>
+                <p id="final-desc" style="font-size: 14px; line-height: 1.6;"></p>
+            </div>
+            <button class="btn-action" style="text-align: center; width: 100%; border-color: var(--neon-yellow); color: var(--neon-yellow);" onclick="location.reload()">HỒI PHỤC LẠI HỆ THỐNG</button>
+        </div>
+
+        <div class="news-ticker">
+            <span style="color: var(--neon-pink); font-weight: bold;">[LIVE]:</span>
+            <span id="ticker-msg">Hệ thống phân tích đã được thiết lập thành công. Đang chờ quyết định...</span>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let cash = 100000000;
+    let efficiency = 3.0;
+    let marketShare = 25;
+    let inflation = 2.0;
+
+    function updateBars() {
+        document.getElementById('ui-cash').innerText = cash.toLocaleString() + "đ";
+        document.getElementById('ui-eff').innerText = efficiency.toFixed(1) + " Giờ";
+        document.getElementById('ui-share').innerText = marketShare + "%";
+        document.getElementById('ui-inf').innerText = inflation.toFixed(1) + "%";
+
+        // Tính toán độ dài thanh đồ họa động
+        document.getElementById('bar-eff').style.width = Math.max(5, (4 - efficiency) * 33) + "%";
+        document.getElementById('bar-share').style.width = Math.min(100, marketShare) + "%";
+        document.getElementById('bar-inf').style.width = Math.min(100, inflation * 5) + "%";
+    }
+
+    function changeScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen-' + screenId).classList.add('active');
+    }
+
+    // MUA CÔNG NGHỆ VÒNG 1
+    function purchaseTech() {
+        if(cash >= 40000000) {
+            cash -= 40000000;
+            efficiency = 1.2;
+            document.getElementById('buy-btn-1').disabled = true;
+            document.getElementById('buy-btn-1').innerText = "ĐÃ ĐẦU TƯ";
+            document.getElementById('ai-txt-1').innerText = '"Hệ thống xác nhận: Hao phí cá biệt giảm sâu xuống 1.2h, thấp hơn mức xã hội cần thiết!"';
+            document.getElementById('ticker-msg').innerText = "Doanh nghiệp đi đầu về công nghệ dệt may kỹ thuật số.";
+            soundWin();
+            updateBars();
+        }
+    }
+
+    // KẾT QUẢ VÒNG 1
+    function submitLvl1(choice) {
+        document.querySelectorAll('#screen-lvl1 .btn-action').forEach(b => b.disabled = true);
+        document.getElementById('buy-btn-1').disabled = true;
+
+        if(choice === 1) {
+            cash -= 20000000;
+            marketShare -= 5;
+            document.getElementById('ai-txt-1').innerText = '"Thất bại! Cắt giảm lương làm công nhân bãi công, năng suất sụt giảm."';
+            document.getElementById('ticker-msg').innerText = "Biến động nhân sự ảnh hưởng nghiêm trọng tới sản xuất.";
+            soundLose();
+        }
+        
+        if(efficiency > 2.0) { // Không mua công nghệ
+            cash -= 40000000;
+            marketShare -= 10;
+            document.getElementById('ai-txt-1').innerText = '"Quy luật giá trị chi phối: Bạn tốn 3h nhưng thị trường chỉ trả tiền mức 2h. Bạn lỗ nặng!"';
+            soundLose();
+        } else { // Đã mua công nghệ Đức
+            cash += 60000000;
+            marketShare += 15;
+            document.getElementById('ai-txt-1').innerText = '"Tuyệt vời! Hao phí cá biệt nhỏ hơn hao phí xã hội, bạn độc chiếm biên lợi nhuận siêu ngạch!"';
+            soundWin();
+        }
+        updateBars();
+        document.getElementById('next-to-2').style.display = 'block';
+    }
+
+    // KẾT QUẢ VÒNG 2
+    function submitLvl2(choice) {
+        document.querySelectorAll('#screen-lvl2 .btn-action').forEach(b => b.disabled = true);
+        if(choice === 1) {
+            cash -= 30000000;
+            marketShare -= 10;
+            document.getElementById('ai-txt-2').innerText = '"Quy luật Cung - Cầu chi phối: Cung vượt Cầu ở mảng xe xăng làm xe mất giá, hàng tồn kho chất đống!"';
+            document.getElementById('ticker-msg').innerText = "Cổ phiếu mảng xe truyền thống giảm sàn liên tục.";
+            soundLose();
+        } else {
+            cash += 70000000;
+            marketShare += 20;
+            document.getElementById('ai-txt-2').innerText = '"Thành công bùng nổ! Bạn bán được sản phẩm giá cao ngất ngưỡng do Cầu vượt Cung."';
+            document.getElementById('ticker-msg').innerText = "Doanh nghiệp dẫn đầu chỉ số tăng trưởng mảng năng lượng mới.";
+            soundWin();
+        }
+        updateBars();
+        document.getElementById('next-to-3').style.display = 'block';
+    }
+
+    // KẾT QUẢ VÒNG 3
+    function submitLvl3(choice) {
+        document.querySelectorAll('#screen-lvl3 .btn-action').forEach(b => b.disabled = true);
+        if(choice === 1) {
+            cash -= 40000000;
+            marketShare -= 15;
+            document.getElementById('ai-txt-3').innerText = '"Quy luật Cạnh tranh khốc liệt: Cuộc chiến phá giá làm kiệt quệ dòng tiền của cả hai bên."';
+            document.getElementById('ticker-msg').innerText = "Biên lợi nhuận toàn ngành bị kéo tụt xuống mức tối thiểu.";
+            soundLose();
+        } else {
+            cash += 50000000;
+            marketShare += 20;
+            document.getElementById('ai-txt-3').innerText = '"Chiến thắng! Cạnh tranh phi giá cả bằng hệ sinh thái giúp nâng tầm thương hiệu bền vững."';
+            document.getElementById('ticker-msg').innerText = "Thương hiệu đạt chứng nhận uy tín số 1 quốc gia.";
+            soundWin();
+        }
+        updateBars();
+        document.getElementById('next-to-4').style.display = 'block';
+    }
+
+    // KẾT QUẢ VÒNG 4
+    function submitLvl4(choice) {
+        document.querySelectorAll('#screen-lvl4 .btn-action').forEach(b => b.disabled = true);
+        if(choice === 1) {
+            inflation = 22.5;
+            cash = Math.floor(cash * 0.15);
+            document.getElementById('ai-txt-4').innerText = '"Thảm họa kinh tế! Quy luật lưu thông tiền tệ bị phá vỡ, giá cả hàng hóa tăng phi mã do lạm phát!"';
+            document.getElementById('ticker-msg').innerText = "Đồng nội tệ mất giá nghiêm trọng trên sàn giao dịch thế giới.";
+            soundLose();
+        } else {
+            cash += 40000000;
+            inflation = 3.5;
+            document.getElementById('ai-txt-4').innerText = '"Quyết sách sáng suốt! Đẩy nhanh tốc độ lưu thông (V) giúp ổn định vĩ mô, cứu thanh khoản thành công."';
+            document.getElementById('ticker-msg').innerText = "Nền kinh tế bước vào chu kỳ phục hồi vàng.";
+            soundWin();
+        }
+        updateBars();
+        document.getElementById('next-to-end').style.display = 'block';
+    }
+
+    // HIỂN THỊ CHỨNG CHỈ CUỐI GAME
+    function processEndGame() {
+        changeScreen('end');
+        let rank = document.getElementById('final-rank');
+        let desc = document.getElementById('final-desc');
+        let cert = document.getElementById('cert-display');
+
+        if(cash >= 160000000 && inflation < 5) {
+            rank.innerText = "XẾP HẠNG: KIM CƯƠNG 🏆";
+            rank.style.color = varToHex('--neon-blue');
+            cert.style.borderColor = "var(--neon-blue)";
+            desc.innerHTML = `Bạn là một Nhà quản trị vĩ mô xuất sắc! Kết quả thực nghiệm cho thấy bạn đã vận dụng hoàn hảo kiến thức khoa học từ Giáo trình Bộ Giáo dục. Việc khống chế hao phí sản xuất (Quy luật giá trị), bắt kịp thị hiếu (Quy luật cung cầu), tạo hệ sinh thái (Quy luật cạnh tranh) và giữ vững cán cân Tiền - Hàng (Quy luật lưu thông tiền tệ) đã chứng minh năng lực tư duy kinh tế đỉnh cao của bạn trước hội đồng chấm điểm!`;
+        } else {
+            rank.innerText = "XẾP HẠNG: ĐỒNG NÁT 🚨";
+            rank.style.color = varToHex('--neon-pink');
+            cert.style.borderColor = "var(--neon-pink)";
+            desc.innerHTML = `Nền kinh tế của bạn đã lâm vào khủng hoảng! Hệ thống ghi nhận bạn đã dùng ý chí chủ quan để can thiệp trái với các quy luật khách quan của thị trường. Việc để chi phí cá biệt vượt trần xã hội hoặc phát hành tiền mặt vô tội vạ đã kích hoạt cơ chế tự trừng phạt sắt đá của nền kinh tế thị trường tự do. Bạn cần xem lại tài liệu giảng dạy một cách nghiêm túc!`;
+        }
+    }
+
+    function varToHex(varName) {
+        return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    }
+</script>
+
+</body>
+</html>
